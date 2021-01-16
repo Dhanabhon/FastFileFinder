@@ -29,13 +29,14 @@ namespace FastFileFinder
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.toolStripSalesStock = new System.Windows.Forms.ToolStrip();
             this.toolStripLbAppName = new System.Windows.Forms.ToolStripLabel();
             this.lblImportFffFile = new System.Windows.Forms.Label();
             this.tbxPathFffFile = new System.Windows.Forms.TextBox();
             this.btnBrowseFffFile = new System.Windows.Forms.Button();
             this.dgvFff = new System.Windows.Forms.DataGridView();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -47,7 +48,7 @@ namespace FastFileFinder
             this.lnklblAbout = new System.Windows.Forms.LinkLabel();
             this.toolStripSalesStock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFff)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.gbStep1.SuspendLayout();
             this.gbStep2.SuspendLayout();
             this.gbStep3.SuspendLayout();
@@ -74,8 +75,11 @@ namespace FastFileFinder
             // 
             this.toolStripLbAppName.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripLbAppName.ForeColor = System.Drawing.Color.White;
+            this.toolStripLbAppName.Image = global::FastFileFinder.Properties.Resources.binoculars;
+            this.toolStripLbAppName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripLbAppName.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
             this.toolStripLbAppName.Name = "toolStripLbAppName";
-            this.toolStripLbAppName.Size = new System.Drawing.Size(155, 45);
+            this.toolStripLbAppName.Size = new System.Drawing.Size(179, 45);
             this.toolStripLbAppName.Text = "Fast File Finder";
             // 
             // lblImportFffFile
@@ -124,15 +128,15 @@ namespace FastFileFinder
             this.dgvFff.Size = new System.Drawing.Size(240, 301);
             this.dgvFff.TabIndex = 8;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(572, 22);
-            this.statusStrip1.TabIndex = 9;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(572, 22);
+            this.statusStrip.TabIndex = 9;
+            this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel
             // 
@@ -257,16 +261,17 @@ namespace FastFileFinder
             this.Controls.Add(this.gbStep3);
             this.Controls.Add(this.gbStep2);
             this.Controls.Add(this.gbStep1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStripSalesStock);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fast File Finder  - Developed by Dhanabhon S. [Open Source]";
             this.toolStripSalesStock.ResumeLayout(false);
             this.toolStripSalesStock.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFff)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.gbStep1.ResumeLayout(false);
             this.gbStep1.PerformLayout();
             this.gbStep2.ResumeLayout(false);
@@ -285,7 +290,7 @@ namespace FastFileFinder
         private System.Windows.Forms.TextBox tbxPathFffFile;
         private System.Windows.Forms.Button btnBrowseFffFile;
         private System.Windows.Forms.DataGridView dgvFff;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;

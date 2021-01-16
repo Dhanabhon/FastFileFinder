@@ -20,6 +20,7 @@ namespace FastFileFinder
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
+            // Icons made by Freepik from https://www.flaticon.com
         }
 
         #region Assembly Attribute Accessors
