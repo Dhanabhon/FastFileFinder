@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FastFileFinder")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Fast File Finder")]
+[assembly: AssemblyDescription("Fast File Finder is a tool for quickly searching files.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FastFileFinder")]
+[assembly: AssemblyCompany("Chulalongkorn University")]
+[assembly: AssemblyProduct("Fast File Finder")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

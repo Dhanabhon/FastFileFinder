@@ -10,24 +10,38 @@ using System.Windows.Forms;
 
 #region Import
 using System.IO;
+using System.Threading;
 #endregion Import
 
 namespace FastFileFinder
 {
     public partial class MainForm : Form
     {
+        #region Variables
+        private Thread threadSearch = null;
+
+        private int nextRowCounter = 0;
+        private int numberOfRows = 0;
+        private bool isRunning = false;
+
+        private delegate void SetHighlightRowCallback(int index);
+        #endregion Variables
+
+        #region Constructor
         public MainForm()
         {
             InitializeComponent();
         }
+        #endregion Constructor
 
         #region Events
         private void MainForm_Load(object sender, EventArgs e)
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            //string workingDirectory = Environment.CurrentDirectory;
+            //string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
 
-            this.tbxPathFffFile.Text = projectDirectory + @"\Template\FFF_Template.csv";
+            //this.tbxPathFffFile.Text = projectDirectory + @"\Template\FFF_Template.csv";
+            this.tbxPathFffFile.Text = Application.StartupPath + @"\Template\FFF_Template.csv";
 
             this.dgvFff.DataSource = this.ReadCsv(this.tbxPathFffFile.Text);
 
@@ -50,7 +64,7 @@ namespace FastFileFinder
                 {
                     ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     if (ofd.ShowDialog() == DialogResult.OK)
-                        this.dgvFff.DataSource = ReadCsv(ofd.FileName);
+                        this.dgvFff.DataSource = this.ReadCsv(ofd.FileName);
                 }
             }
             catch (Exception ex)
@@ -99,8 +113,15 @@ namespace FastFileFinder
                     this.btnSearch.Text = "STOP SEARCHING";
                     this.btnSearch.BackColor = Color.Red;
                     this.EnabledControls(false);
-                    this.SearchFile(this.dgvFff.Rows[this.dgvFff.SelectedCells[0].RowIndex].Cells[0].Value.ToString());
-                    Console.WriteLine("TEST: " + this.dgvFff.Rows[this.dgvFff.SelectedCells[0].RowIndex].Cells[0].Value.ToString());
+
+                    this.threadSearch = new Thread(this.Process)
+                    {
+                        IsBackground = true
+                    };
+                    this.isRunning = true;
+
+                    if (!this.threadSearch.IsAlive)
+                        this.threadSearch.Start();
                 }
                 else
                 {
@@ -108,31 +129,40 @@ namespace FastFileFinder
                     this.btnSearch.Text = "SEARCH";
                     this.btnSearch.BackColor = Color.FromArgb(222, 92, 142);
                     this.EnabledControls(true);
+
+                    this.isRunning = false;
                 }
             }
-
-            //this.dgvFff.CurrentCell = this.dgvFff.Rows[i++].Cells[0];
         }
         #endregion Events
 
         #region Methods
         private DataTable ReadCsv(string filePath)
         {
-            var dt = new DataTable();
-            // Creating the columns
-            File.ReadLines(filePath).Take(1)
-                .SelectMany(x => x.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                .ToList()
-                .ForEach(x => dt.Columns.Add(x.Trim()));
+            try
+            {
+                var dt = new DataTable();
+                // Creating the columns
+                File.ReadLines(filePath).Take(1)
+                    .SelectMany(x => x.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                    .ToList()
+                    .ForEach(x => dt.Columns.Add(x.Trim()));
 
-            // Adding the rows
-            File.ReadLines(filePath).Skip(1)
-                .Select(x => x.Split('\n'))
-                .ToList()
-                .ForEach(line => dt.Rows.Add(line));
+                // Adding the rows
+                File.ReadLines(filePath).Skip(1)
+                    .Select(x => x.Split('\n'))
+                    .ToList()
+                    .ForEach(line => dt.Rows.Add(line));
 
-            this.lblTotalNumberOfRows.Text = "[Total: " + dt.Rows.Count.ToString() + " ]";
-            return dt;
+                this.lblTotalNumberOfRows.Text = "[Total: " + dt.Rows.Count.ToString() + " ]";
+                this.numberOfRows = dt.Rows.Count;
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FFF Template file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
         }
 
         private void SetStatus(string message)
@@ -147,33 +177,90 @@ namespace FastFileFinder
             this.btnBrowseTargetDirectory.Enabled = state;
         }
 
-        private void SearchFile(string fileName)
+        private bool CopyFile(string sourceFileName, string destFileName)
         {
-            string partialName = fileName;
-            DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(this.tbxTargetDirectory.Text);
-            FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + partialName + "*.*");
-
-            foreach (FileInfo foundFile in filesInDir)
-            {
-                //Console.WriteLine(foundFile.Name);
-                //Console.WriteLine(foundFile.FullName);
-
-                this.CopyFile(foundFile.FullName, this.tbxOutputPath.Text + @"\" + foundFile.Name);
-            }
-            MessageBox.Show("Completed.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.btnSearch.PerformClick();
-        }
-
-        private void CopyFile(string sourceFileName, string destFileName)
-        {
+            bool error;
             try
             {
                 File.Copy(sourceFileName, destFileName, true);
+                error = false;
             }
             catch (DirectoryNotFoundException dirNotFound)
             {
-                Console.WriteLine(dirNotFound.Message);
+                MessageBox.Show(dirNotFound.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                error = true;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                error = true;
+            }
+            return error;
+        }
+
+        private void SetHighlighRow(int index)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.dgvFff.InvokeRequired)
+            {
+                SetHighlightRowCallback d = new SetHighlightRowCallback(SetHighlighRow);
+                this.Invoke(d, new object[] { index });
+            }
+            else
+            {
+                this.dgvFff.CurrentCell = this.dgvFff.Rows[index].Cells[0];
+            }
+        }
+
+        // Searching Ref: https://stackoverflow.com/questions/29693603/how-to-find-folders-and-files-by-its-partial-name-c-sharp
+        private void Process()
+        {
+            while(this.isRunning)
+            {
+                if (this.nextRowCounter == this.numberOfRows)
+                {
+                    this.nextRowCounter = 0;
+                    
+
+                    MessageBox.Show("Completed.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.PressSearchButton();
+                }
+
+                string partialName = this.dgvFff.Rows[this.nextRowCounter].Cells[0].Value.ToString();
+
+                DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(this.tbxTargetDirectory.Text);
+                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + partialName + "*.*");
+
+                foreach (FileInfo foundFile in filesInDir)
+                {
+                    if (this.CopyFile(foundFile.FullName, this.tbxOutputPath.Text + @"\" + foundFile.Name))
+                    {
+                        this.PressSearchButton();
+                        return;
+                    }
+                }
+
+                this.SetHighlighRow(nextRowCounter);
+                this.nextRowCounter++;
+            }
+        }
+
+        private void PressSearchButton()
+        {
+            if (this.InvokeRequired)
+            {
+
+                Action action = this.PressSearchButton;
+                this.Invoke(action);
+            }
+            else
+            {
+
+                this.btnSearch.PerformClick();
+            }
+
         }
         #endregion Methods
     } // class

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace FastFileFinder
 {
-    partial class AboutForm : MainForm
+    partial class AboutForm : Form
     {
         public AboutForm()
         {
@@ -19,8 +19,7 @@ namespace FastFileFinder
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
-            // Icons made by Freepik from https://www.flaticon.com
+            this.textBoxDescription.Text = AssemblyDescription + Environment.NewLine + "Icons made by Freepik from www.flaticon.com";
         }
 
         #region Assembly Attribute Accessors

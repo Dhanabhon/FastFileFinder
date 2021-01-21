@@ -42,6 +42,7 @@ namespace FastFileFinder
             this.tbxTargetDirectory = new System.Windows.Forms.TextBox();
             this.lblTargetDirectory = new System.Windows.Forms.Label();
             this.gbStep1 = new System.Windows.Forms.GroupBox();
+            this.lblTotalNumberOfRows = new System.Windows.Forms.Label();
             this.gbStep2 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lnklblAbout = new System.Windows.Forms.LinkLabel();
@@ -50,7 +51,6 @@ namespace FastFileFinder
             this.lblOutputPath = new System.Windows.Forms.Label();
             this.btnBrowseOutputPath = new System.Windows.Forms.Button();
             this.gbStep4 = new System.Windows.Forms.GroupBox();
-            this.lblTotalNumberOfRows = new System.Windows.Forms.Label();
             this.toolStripSalesStock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFff)).BeginInit();
             this.statusStrip.SuspendLayout();
@@ -73,7 +73,7 @@ namespace FastFileFinder
             this.toolStripSalesStock.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStripSalesStock.Location = new System.Drawing.Point(0, 0);
             this.toolStripSalesStock.Name = "toolStripSalesStock";
-            this.toolStripSalesStock.Size = new System.Drawing.Size(572, 48);
+            this.toolStripSalesStock.Size = new System.Drawing.Size(739, 48);
             this.toolStripSalesStock.TabIndex = 4;
             this.toolStripSalesStock.Text = "toolStrip";
             // 
@@ -85,8 +85,8 @@ namespace FastFileFinder
             this.toolStripLbAppName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripLbAppName.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
             this.toolStripLbAppName.Name = "toolStripLbAppName";
-            this.toolStripLbAppName.Size = new System.Drawing.Size(179, 45);
-            this.toolStripLbAppName.Text = "Fast File Finder";
+            this.toolStripLbAppName.Size = new System.Drawing.Size(224, 45);
+            this.toolStripLbAppName.Text = "Fast File Finder v1.0";
             // 
             // lblImportFffFile
             // 
@@ -105,8 +105,9 @@ namespace FastFileFinder
             this.tbxPathFffFile.Location = new System.Drawing.Point(15, 44);
             this.tbxPathFffFile.Name = "tbxPathFffFile";
             this.tbxPathFffFile.ReadOnly = true;
-            this.tbxPathFffFile.Size = new System.Drawing.Size(240, 22);
+            this.tbxPathFffFile.Size = new System.Drawing.Size(344, 22);
             this.tbxPathFffFile.TabIndex = 6;
+            this.tbxPathFffFile.TabStop = false;
             // 
             // btnBrowseFffFile
             // 
@@ -117,7 +118,7 @@ namespace FastFileFinder
             this.btnBrowseFffFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowseFffFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnBrowseFffFile.ForeColor = System.Drawing.Color.White;
-            this.btnBrowseFffFile.Location = new System.Drawing.Point(170, 72);
+            this.btnBrowseFffFile.Location = new System.Drawing.Point(274, 72);
             this.btnBrowseFffFile.Name = "btnBrowseFffFile";
             this.btnBrowseFffFile.Size = new System.Drawing.Size(85, 25);
             this.btnBrowseFffFile.TabIndex = 7;
@@ -143,16 +144,17 @@ namespace FastFileFinder
             this.dgvFff.ReadOnly = true;
             this.dgvFff.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvFff.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFff.Size = new System.Drawing.Size(240, 289);
+            this.dgvFff.Size = new System.Drawing.Size(344, 295);
             this.dgvFff.TabIndex = 8;
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip.Location = new System.Drawing.Point(0, 506);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(572, 22);
+            this.statusStrip.Size = new System.Drawing.Size(739, 22);
+            this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 9;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -172,7 +174,7 @@ namespace FastFileFinder
             this.btnBrowseTargetDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowseTargetDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnBrowseTargetDirectory.ForeColor = System.Drawing.Color.White;
-            this.btnBrowseTargetDirectory.Location = new System.Drawing.Point(171, 72);
+            this.btnBrowseTargetDirectory.Location = new System.Drawing.Point(233, 72);
             this.btnBrowseTargetDirectory.Name = "btnBrowseTargetDirectory";
             this.btnBrowseTargetDirectory.Size = new System.Drawing.Size(85, 25);
             this.btnBrowseTargetDirectory.TabIndex = 12;
@@ -187,8 +189,9 @@ namespace FastFileFinder
             this.tbxTargetDirectory.Location = new System.Drawing.Point(16, 44);
             this.tbxTargetDirectory.Name = "tbxTargetDirectory";
             this.tbxTargetDirectory.ReadOnly = true;
-            this.tbxTargetDirectory.Size = new System.Drawing.Size(240, 22);
+            this.tbxTargetDirectory.Size = new System.Drawing.Size(302, 22);
             this.tbxTargetDirectory.TabIndex = 11;
+            this.tbxTargetDirectory.TabStop = false;
             // 
             // lblTargetDirectory
             // 
@@ -212,10 +215,21 @@ namespace FastFileFinder
             this.gbStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.gbStep1.Location = new System.Drawing.Point(12, 62);
             this.gbStep1.Name = "gbStep1";
-            this.gbStep1.Size = new System.Drawing.Size(270, 422);
+            this.gbStep1.Size = new System.Drawing.Size(375, 428);
             this.gbStep1.TabIndex = 13;
             this.gbStep1.TabStop = false;
             this.gbStep1.Text = "Step 1";
+            // 
+            // lblTotalNumberOfRows
+            // 
+            this.lblTotalNumberOfRows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTotalNumberOfRows.AutoSize = true;
+            this.lblTotalNumberOfRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotalNumberOfRows.Location = new System.Drawing.Point(12, 403);
+            this.lblTotalNumberOfRows.Name = "lblTotalNumberOfRows";
+            this.lblTotalNumberOfRows.Size = new System.Drawing.Size(56, 15);
+            this.lblTotalNumberOfRows.TabIndex = 9;
+            this.lblTotalNumberOfRows.Text = "[Total : 0]";
             // 
             // gbStep2
             // 
@@ -223,9 +237,9 @@ namespace FastFileFinder
             this.gbStep2.Controls.Add(this.lblTargetDirectory);
             this.gbStep2.Controls.Add(this.btnBrowseTargetDirectory);
             this.gbStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.gbStep2.Location = new System.Drawing.Point(288, 62);
+            this.gbStep2.Location = new System.Drawing.Point(393, 62);
             this.gbStep2.Name = "gbStep2";
-            this.gbStep2.Size = new System.Drawing.Size(272, 108);
+            this.gbStep2.Size = new System.Drawing.Size(334, 108);
             this.gbStep2.TabIndex = 14;
             this.gbStep2.TabStop = false;
             this.gbStep2.Text = "Step 2";
@@ -241,7 +255,7 @@ namespace FastFileFinder
             this.btnSearch.ForeColor = System.Drawing.Color.White;
             this.btnSearch.Location = new System.Drawing.Point(16, 21);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(240, 48);
+            this.btnSearch.Size = new System.Drawing.Size(302, 48);
             this.btnSearch.TabIndex = 16;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -251,7 +265,7 @@ namespace FastFileFinder
             // 
             this.lnklblAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lnklblAbout.AutoSize = true;
-            this.lnklblAbout.Location = new System.Drawing.Point(525, 471);
+            this.lnklblAbout.Location = new System.Drawing.Point(692, 477);
             this.lnklblAbout.Name = "lnklblAbout";
             this.lnklblAbout.Size = new System.Drawing.Size(35, 13);
             this.lnklblAbout.TabIndex = 16;
@@ -265,9 +279,9 @@ namespace FastFileFinder
             this.gbStep3.Controls.Add(this.lblOutputPath);
             this.gbStep3.Controls.Add(this.btnBrowseOutputPath);
             this.gbStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.gbStep3.Location = new System.Drawing.Point(288, 176);
+            this.gbStep3.Location = new System.Drawing.Point(393, 176);
             this.gbStep3.Name = "gbStep3";
-            this.gbStep3.Size = new System.Drawing.Size(272, 108);
+            this.gbStep3.Size = new System.Drawing.Size(334, 108);
             this.gbStep3.TabIndex = 17;
             this.gbStep3.TabStop = false;
             this.gbStep3.Text = "Step 3";
@@ -279,8 +293,9 @@ namespace FastFileFinder
             this.tbxOutputPath.Location = new System.Drawing.Point(16, 44);
             this.tbxOutputPath.Name = "tbxOutputPath";
             this.tbxOutputPath.ReadOnly = true;
-            this.tbxOutputPath.Size = new System.Drawing.Size(240, 22);
+            this.tbxOutputPath.Size = new System.Drawing.Size(302, 22);
             this.tbxOutputPath.TabIndex = 11;
+            this.tbxOutputPath.TabStop = false;
             // 
             // lblOutputPath
             // 
@@ -301,7 +316,7 @@ namespace FastFileFinder
             this.btnBrowseOutputPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowseOutputPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnBrowseOutputPath.ForeColor = System.Drawing.Color.White;
-            this.btnBrowseOutputPath.Location = new System.Drawing.Point(171, 72);
+            this.btnBrowseOutputPath.Location = new System.Drawing.Point(233, 72);
             this.btnBrowseOutputPath.Name = "btnBrowseOutputPath";
             this.btnBrowseOutputPath.Size = new System.Drawing.Size(85, 25);
             this.btnBrowseOutputPath.TabIndex = 12;
@@ -313,28 +328,18 @@ namespace FastFileFinder
             // 
             this.gbStep4.Controls.Add(this.btnSearch);
             this.gbStep4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.gbStep4.Location = new System.Drawing.Point(288, 290);
+            this.gbStep4.Location = new System.Drawing.Point(393, 290);
             this.gbStep4.Name = "gbStep4";
-            this.gbStep4.Size = new System.Drawing.Size(272, 84);
+            this.gbStep4.Size = new System.Drawing.Size(334, 84);
             this.gbStep4.TabIndex = 18;
             this.gbStep4.TabStop = false;
             this.gbStep4.Text = "Step 4";
-            // 
-            // lblTotalNumberOfRows
-            // 
-            this.lblTotalNumberOfRows.AutoSize = true;
-            this.lblTotalNumberOfRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblTotalNumberOfRows.Location = new System.Drawing.Point(12, 397);
-            this.lblTotalNumberOfRows.Name = "lblTotalNumberOfRows";
-            this.lblTotalNumberOfRows.Size = new System.Drawing.Size(56, 15);
-            this.lblTotalNumberOfRows.TabIndex = 9;
-            this.lblTotalNumberOfRows.Text = "[Total : 0]";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 522);
+            this.ClientSize = new System.Drawing.Size(739, 528);
             this.Controls.Add(this.gbStep4);
             this.Controls.Add(this.gbStep3);
             this.Controls.Add(this.lnklblAbout);
