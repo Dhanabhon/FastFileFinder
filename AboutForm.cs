@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace FastFileFinder
 {
-    partial class AboutForm : Form
+    partial class AboutForm : MainForm
     {
         public AboutForm()
         {

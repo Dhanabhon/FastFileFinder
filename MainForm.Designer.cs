@@ -1,7 +1,7 @@
 ﻿
 namespace FastFileFinder
 {
-    partial class Form
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace FastFileFinder
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStripSalesStock = new System.Windows.Forms.ToolStrip();
             this.toolStripLbAppName = new System.Windows.Forms.ToolStripLabel();
             this.lblImportFffFile = new System.Windows.Forms.Label();
@@ -38,20 +38,26 @@ namespace FastFileFinder
             this.dgvFff = new System.Windows.Forms.DataGridView();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblOutput = new System.Windows.Forms.Label();
+            this.btnBrowseTargetDirectory = new System.Windows.Forms.Button();
+            this.tbxTargetDirectory = new System.Windows.Forms.TextBox();
+            this.lblTargetDirectory = new System.Windows.Forms.Label();
             this.gbStep1 = new System.Windows.Forms.GroupBox();
             this.gbStep2 = new System.Windows.Forms.GroupBox();
-            this.gbStep3 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lnklblAbout = new System.Windows.Forms.LinkLabel();
+            this.gbStep3 = new System.Windows.Forms.GroupBox();
+            this.tbxOutputPath = new System.Windows.Forms.TextBox();
+            this.lblOutputPath = new System.Windows.Forms.Label();
+            this.btnBrowseOutputPath = new System.Windows.Forms.Button();
+            this.gbStep4 = new System.Windows.Forms.GroupBox();
+            this.lblTotalNumberOfRows = new System.Windows.Forms.Label();
             this.toolStripSalesStock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFff)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.gbStep1.SuspendLayout();
             this.gbStep2.SuspendLayout();
             this.gbStep3.SuspendLayout();
+            this.gbStep4.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripSalesStock
@@ -117,15 +123,27 @@ namespace FastFileFinder
             this.btnBrowseFffFile.TabIndex = 7;
             this.btnBrowseFffFile.Text = "Browse...";
             this.btnBrowseFffFile.UseVisualStyleBackColor = false;
+            this.btnBrowseFffFile.Click += new System.EventHandler(this.btnBrowseFffFile_Click);
             // 
             // dgvFff
             // 
+            this.dgvFff.AllowUserToAddRows = false;
+            this.dgvFff.AllowUserToDeleteRows = false;
+            this.dgvFff.AllowUserToResizeColumns = false;
+            this.dgvFff.AllowUserToResizeRows = false;
             this.dgvFff.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgvFff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFff.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvFff.BackgroundColor = System.Drawing.Color.White;
+            this.dgvFff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvFff.ColumnHeadersVisible = false;
             this.dgvFff.Location = new System.Drawing.Point(15, 103);
+            this.dgvFff.MultiSelect = false;
             this.dgvFff.Name = "dgvFff";
-            this.dgvFff.Size = new System.Drawing.Size(240, 301);
+            this.dgvFff.ReadOnly = true;
+            this.dgvFff.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgvFff.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFff.Size = new System.Drawing.Size(240, 289);
             this.dgvFff.TabIndex = 8;
             // 
             // statusStrip
@@ -145,46 +163,48 @@ namespace FastFileFinder
             this.toolStripStatusLabel.Size = new System.Drawing.Size(114, 17);
             this.toolStripStatusLabel.Text = "Waiting for search";
             // 
-            // button1
+            // btnBrowseTargetDirectory
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(92)))), ((int)(((byte)(142)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(171, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 25);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Browse...";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnBrowseTargetDirectory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(92)))), ((int)(((byte)(142)))));
+            this.btnBrowseTargetDirectory.FlatAppearance.BorderSize = 0;
+            this.btnBrowseTargetDirectory.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
+            this.btnBrowseTargetDirectory.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
+            this.btnBrowseTargetDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowseTargetDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnBrowseTargetDirectory.ForeColor = System.Drawing.Color.White;
+            this.btnBrowseTargetDirectory.Location = new System.Drawing.Point(171, 72);
+            this.btnBrowseTargetDirectory.Name = "btnBrowseTargetDirectory";
+            this.btnBrowseTargetDirectory.Size = new System.Drawing.Size(85, 25);
+            this.btnBrowseTargetDirectory.TabIndex = 12;
+            this.btnBrowseTargetDirectory.Text = "Browse...";
+            this.btnBrowseTargetDirectory.UseVisualStyleBackColor = false;
+            this.btnBrowseTargetDirectory.Click += new System.EventHandler(this.btnBrowseTargetDirectory_Click);
             // 
-            // textBox1
+            // tbxTargetDirectory
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox1.Location = new System.Drawing.Point(16, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(240, 22);
-            this.textBox1.TabIndex = 11;
+            this.tbxTargetDirectory.BackColor = System.Drawing.Color.White;
+            this.tbxTargetDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tbxTargetDirectory.Location = new System.Drawing.Point(16, 44);
+            this.tbxTargetDirectory.Name = "tbxTargetDirectory";
+            this.tbxTargetDirectory.ReadOnly = true;
+            this.tbxTargetDirectory.Size = new System.Drawing.Size(240, 22);
+            this.tbxTargetDirectory.TabIndex = 11;
             // 
-            // lblOutput
+            // lblTargetDirectory
             // 
-            this.lblOutput.AutoSize = true;
-            this.lblOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblOutput.Location = new System.Drawing.Point(13, 25);
-            this.lblOutput.Name = "lblOutput";
-            this.lblOutput.Size = new System.Drawing.Size(92, 16);
-            this.lblOutput.TabIndex = 10;
-            this.lblOutput.Text = "Copy file path:";
+            this.lblTargetDirectory.AutoSize = true;
+            this.lblTargetDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTargetDirectory.Location = new System.Drawing.Point(13, 25);
+            this.lblTargetDirectory.Name = "lblTargetDirectory";
+            this.lblTargetDirectory.Size = new System.Drawing.Size(106, 16);
+            this.lblTargetDirectory.TabIndex = 10;
+            this.lblTargetDirectory.Text = "Target directory:";
             // 
             // gbStep1
             // 
             this.gbStep1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.gbStep1.Controls.Add(this.lblTotalNumberOfRows);
             this.gbStep1.Controls.Add(this.tbxPathFffFile);
             this.gbStep1.Controls.Add(this.lblImportFffFile);
             this.gbStep1.Controls.Add(this.btnBrowseFffFile);
@@ -199,9 +219,9 @@ namespace FastFileFinder
             // 
             // gbStep2
             // 
-            this.gbStep2.Controls.Add(this.textBox1);
-            this.gbStep2.Controls.Add(this.lblOutput);
-            this.gbStep2.Controls.Add(this.button1);
+            this.gbStep2.Controls.Add(this.tbxTargetDirectory);
+            this.gbStep2.Controls.Add(this.lblTargetDirectory);
+            this.gbStep2.Controls.Add(this.btnBrowseTargetDirectory);
             this.gbStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.gbStep2.Location = new System.Drawing.Point(288, 62);
             this.gbStep2.Name = "gbStep2";
@@ -210,22 +230,8 @@ namespace FastFileFinder
             this.gbStep2.TabStop = false;
             this.gbStep2.Text = "Step 2";
             // 
-            // gbStep3
-            // 
-            this.gbStep3.Controls.Add(this.btnSearch);
-            this.gbStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.gbStep3.Location = new System.Drawing.Point(288, 176);
-            this.gbStep3.Name = "gbStep3";
-            this.gbStep3.Size = new System.Drawing.Size(274, 84);
-            this.gbStep3.TabIndex = 15;
-            this.gbStep3.TabStop = false;
-            this.gbStep3.Text = "Step 3";
-            // 
             // btnSearch
             // 
-            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(92)))), ((int)(((byte)(142)))));
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
@@ -239,6 +245,7 @@ namespace FastFileFinder
             this.btnSearch.TabIndex = 16;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // lnklblAbout
             // 
@@ -252,21 +259,94 @@ namespace FastFileFinder
             this.lnklblAbout.Text = "About";
             this.lnklblAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblAbout_LinkClicked);
             // 
-            // Form
+            // gbStep3
+            // 
+            this.gbStep3.Controls.Add(this.tbxOutputPath);
+            this.gbStep3.Controls.Add(this.lblOutputPath);
+            this.gbStep3.Controls.Add(this.btnBrowseOutputPath);
+            this.gbStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.gbStep3.Location = new System.Drawing.Point(288, 176);
+            this.gbStep3.Name = "gbStep3";
+            this.gbStep3.Size = new System.Drawing.Size(272, 108);
+            this.gbStep3.TabIndex = 17;
+            this.gbStep3.TabStop = false;
+            this.gbStep3.Text = "Step 3";
+            // 
+            // tbxOutputPath
+            // 
+            this.tbxOutputPath.BackColor = System.Drawing.Color.White;
+            this.tbxOutputPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tbxOutputPath.Location = new System.Drawing.Point(16, 44);
+            this.tbxOutputPath.Name = "tbxOutputPath";
+            this.tbxOutputPath.ReadOnly = true;
+            this.tbxOutputPath.Size = new System.Drawing.Size(240, 22);
+            this.tbxOutputPath.TabIndex = 11;
+            // 
+            // lblOutputPath
+            // 
+            this.lblOutputPath.AutoSize = true;
+            this.lblOutputPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblOutputPath.Location = new System.Drawing.Point(13, 25);
+            this.lblOutputPath.Name = "lblOutputPath";
+            this.lblOutputPath.Size = new System.Drawing.Size(78, 16);
+            this.lblOutputPath.TabIndex = 10;
+            this.lblOutputPath.Text = "Output path:";
+            // 
+            // btnBrowseOutputPath
+            // 
+            this.btnBrowseOutputPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(92)))), ((int)(((byte)(142)))));
+            this.btnBrowseOutputPath.FlatAppearance.BorderSize = 0;
+            this.btnBrowseOutputPath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
+            this.btnBrowseOutputPath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(59)))), ((int)(((byte)(107)))));
+            this.btnBrowseOutputPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowseOutputPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnBrowseOutputPath.ForeColor = System.Drawing.Color.White;
+            this.btnBrowseOutputPath.Location = new System.Drawing.Point(171, 72);
+            this.btnBrowseOutputPath.Name = "btnBrowseOutputPath";
+            this.btnBrowseOutputPath.Size = new System.Drawing.Size(85, 25);
+            this.btnBrowseOutputPath.TabIndex = 12;
+            this.btnBrowseOutputPath.Text = "Browse...";
+            this.btnBrowseOutputPath.UseVisualStyleBackColor = false;
+            this.btnBrowseOutputPath.Click += new System.EventHandler(this.btnBrowseOutputPath_Click);
+            // 
+            // gbStep4
+            // 
+            this.gbStep4.Controls.Add(this.btnSearch);
+            this.gbStep4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.gbStep4.Location = new System.Drawing.Point(288, 290);
+            this.gbStep4.Name = "gbStep4";
+            this.gbStep4.Size = new System.Drawing.Size(272, 84);
+            this.gbStep4.TabIndex = 18;
+            this.gbStep4.TabStop = false;
+            this.gbStep4.Text = "Step 4";
+            // 
+            // lblTotalNumberOfRows
+            // 
+            this.lblTotalNumberOfRows.AutoSize = true;
+            this.lblTotalNumberOfRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblTotalNumberOfRows.Location = new System.Drawing.Point(12, 397);
+            this.lblTotalNumberOfRows.Name = "lblTotalNumberOfRows";
+            this.lblTotalNumberOfRows.Size = new System.Drawing.Size(56, 15);
+            this.lblTotalNumberOfRows.TabIndex = 9;
+            this.lblTotalNumberOfRows.Text = "[Total : 0]";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 522);
-            this.Controls.Add(this.lnklblAbout);
+            this.Controls.Add(this.gbStep4);
             this.Controls.Add(this.gbStep3);
+            this.Controls.Add(this.lnklblAbout);
             this.Controls.Add(this.gbStep2);
             this.Controls.Add(this.gbStep1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStripSalesStock);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fast File Finder  - Developed by Dhanabhon S. [Open Source]";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStripSalesStock.ResumeLayout(false);
             this.toolStripSalesStock.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFff)).EndInit();
@@ -277,6 +357,8 @@ namespace FastFileFinder
             this.gbStep2.ResumeLayout(false);
             this.gbStep2.PerformLayout();
             this.gbStep3.ResumeLayout(false);
+            this.gbStep3.PerformLayout();
+            this.gbStep4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,14 +374,19 @@ namespace FastFileFinder
         private System.Windows.Forms.DataGridView dgvFff;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label lblOutput;
+        private System.Windows.Forms.Button btnBrowseTargetDirectory;
+        private System.Windows.Forms.TextBox tbxTargetDirectory;
+        private System.Windows.Forms.Label lblTargetDirectory;
         private System.Windows.Forms.GroupBox gbStep1;
         private System.Windows.Forms.GroupBox gbStep2;
-        private System.Windows.Forms.GroupBox gbStep3;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.LinkLabel lnklblAbout;
+        private System.Windows.Forms.GroupBox gbStep3;
+        private System.Windows.Forms.TextBox tbxOutputPath;
+        private System.Windows.Forms.Label lblOutputPath;
+        private System.Windows.Forms.Button btnBrowseOutputPath;
+        private System.Windows.Forms.GroupBox gbStep4;
+        private System.Windows.Forms.Label lblTotalNumberOfRows;
     }
 }
 
