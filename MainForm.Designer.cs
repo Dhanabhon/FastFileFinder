@@ -351,6 +351,7 @@ namespace FastFileFinder
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fast File Finder  - Developed by Dhanabhon S. [Open Source]";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStripSalesStock.ResumeLayout(false);
             this.toolStripSalesStock.PerformLayout();

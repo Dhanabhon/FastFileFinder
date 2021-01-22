@@ -11,6 +11,7 @@ using System.Windows.Forms;
 #region Import
 using System.IO;
 using System.Threading;
+using FastFileFinder.Properties;
 #endregion Import
 
 namespace FastFileFinder
@@ -25,6 +26,8 @@ namespace FastFileFinder
         private bool isRunning = false;
 
         private delegate void SetHighlightRowCallback(int index);
+
+        private readonly Settings settings = new Settings();
         #endregion Variables
 
         #region Constructor
@@ -37,16 +40,29 @@ namespace FastFileFinder
         #region Events
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //string workingDirectory = Environment.CurrentDirectory;
-            //string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            this.settings.Reload();
 
-            //this.tbxPathFffFile.Text = projectDirectory + @"\Template\FFF_Template.csv";
-            this.tbxPathFffFile.Text = Application.StartupPath + @"\Template\FFF_Template.csv";
+            if (this.settings.FFFPath == string.Empty)
+                this.tbxPathFffFile.Text = Application.StartupPath + @"\Template\FFF_Template.csv";
+            else
+                this.tbxPathFffFile.Text = this.settings.FFFPath;
+
+            if (this.settings.OutputPath == string.Empty)
+                this.tbxOutputPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            else
+                this.tbxOutputPath.Text = this.settings.OutputPath;
+
+            if (this.settings.TargetDirectory == string.Empty)
+                this.tbxTargetDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            else
+                this.tbxTargetDirectory.Text = this.settings.TargetDirectory;
 
             this.dgvFff.DataSource = this.ReadCsv(this.tbxPathFffFile.Text);
+        }
 
-            this.tbxTargetDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            this.tbxOutputPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.SaveSettings();
         }
 
         private void lnklblAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -64,7 +80,11 @@ namespace FastFileFinder
                 {
                     ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     if (ofd.ShowDialog() == DialogResult.OK)
+                    {
                         this.dgvFff.DataSource = this.ReadCsv(ofd.FileName);
+                        this.SaveSettings();
+                    }
+                        
                 }
             }
             catch (Exception ex)
@@ -81,6 +101,7 @@ namespace FastFileFinder
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     this.tbxTargetDirectory.Text = fbd.SelectedPath;
+                    this.SaveSettings();
                 }
             }
         }
@@ -93,6 +114,7 @@ namespace FastFileFinder
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     this.tbxOutputPath.Text = fbd.SelectedPath;
+                    this.SaveSettings();
                 }
             }
         }
@@ -137,6 +159,15 @@ namespace FastFileFinder
         #endregion Events
 
         #region Methods
+
+        private void SaveSettings()
+        {
+            this.settings.FFFPath = this.tbxPathFffFile.Text;
+            this.settings.TargetDirectory = this.tbxTargetDirectory.Text;
+            this.settings.OutputPath = this.tbxOutputPath.Text;
+            this.settings.Save();
+        }
+
         private DataTable ReadCsv(string filePath)
         {
             try
@@ -231,7 +262,7 @@ namespace FastFileFinder
                 string partialName = this.dgvFff.Rows[this.nextRowCounter].Cells[0].Value.ToString();
 
                 DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(this.tbxTargetDirectory.Text);
-                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + partialName + "*.*");
+                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + partialName + "*");
 
                 foreach (FileInfo foundFile in filesInDir)
                 {
@@ -263,5 +294,6 @@ namespace FastFileFinder
 
         }
         #endregion Methods
+
     } // class
 } // namespace
